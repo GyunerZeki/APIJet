@@ -154,22 +154,20 @@ class APIJet
             $response->setCode(404);
         } else {
             try  {
-                try  {
-                    $actionResponse = $this->executeResoruceAction(
-                        $router->getMatchedController(),
-                        $router->getMatchedAction(),
-                        $router->getMatchedRouteParameters()
-                    );
-                    
-                    if ($actionResponse === false) {
-                        $response->setCode(404);
-                    } else {
-                        $response->setBody($actionResponse);
-                    }
-                } catch(ApiException $e) {
-                    $response->setCode($e->getHttpCode());
-                    $response->setBody($e->getErrorBody());
+                $actionResponse = $this->executeResoruceAction(
+                    $router->getMatchedController(),
+                    $router->getMatchedAction(),
+                    $router->getMatchedRouteParameters()
+                );
+                
+                if ($actionResponse === false) {
+                    $response->setCode(404);
+                } else {
+                    $response->setBody($actionResponse);
                 }
+            } catch(CustomException $e) {
+                $response->setCode($e->getHttpCode());
+                $response->setBody($e->getErrorBody());
             } catch(\Exception $e) {
                 $response->setCode(500);
             }
