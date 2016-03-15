@@ -165,6 +165,9 @@ class APIJet
                 } else {
                     $response->setBody($actionResponse);
                 }
+            } catch(CustomException $e) {
+                $response->setCode($e->getHttpCode());
+                $response->setBody($e->getErrorBody());
             } catch(\Exception $e) {
                 $response->setCode(500);
             }
