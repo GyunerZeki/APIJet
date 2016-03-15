@@ -1,15 +1,13 @@
 <?php
 
-namespace Api;
+namespace APIJet;
 
 /**
- * Api
  * @package  APIJet
  * @author   Pavel Tashev
  * @since    1.0.0
- *
  */
-class ApiException extends \Exception
+class CustomException extends \Exception
 {
     private $error_body;
     private $http_code;
